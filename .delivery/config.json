@@ -15,8 +15,5 @@
     "quality",
     "smoke",
     "deploy"
-	],
-  "build_nodes": {
-    "default": ["name:builder-7.delivery.chef.co"]
-  }
+	]
 }
