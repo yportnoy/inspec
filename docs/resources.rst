@@ -2,120 +2,62 @@
 Audit Resources Reference
 =====================================================
 
-xxxxx
+The following Audit resources are available:
 
-
-
-TEMPLATE
-
-
-resource_name
-=====================================================
-Use the ``resource_name`` audit resource to xxxxx.
-
-Syntax
------------------------------------------------------
-A ``resource_name`` audit resource block declares xxxxx. For example:
-
-.. code-block:: ruby
-
-   describe xxxxx(xxxxx) do
-     it { should xxxxx }
-   end
-
-where
-
-* ``xxxxx`` must specify xxxxx
-* xxxxx
-* ``xxxxx`` is a valid matcher for this audit resource
-
-Matchers
------------------------------------------------------
-This audit resource has the following matchers.
-
-xxxxx
-+++++++++++++++++++++++++++++++++++++++++++++++++++++
-The ``xxxxx`` matcher tests if xxxxx. For example:
-
-.. code-block:: ruby
-
-   it { should xxxxx }
-
-xxxxx
-+++++++++++++++++++++++++++++++++++++++++++++++++++++
-The ``xxxxx`` matcher tests if xxxxx. For example:
-
-.. code-block:: ruby
-
-   it { should xxxxx }
-
-Examples
------------------------------------------------------
-The following examples show how to use this audit resource in a recipe.
-
-**xxxxx** 
-
-xxxxx
-
-**xxxxx** 
-
-xxxxx
-
-
-
-The following audit resources are xxxxx:
-
-* ``apache_conf``
 * ``apt``
-* ``audit_policy``
-* ``audit_daemon_conf``
-* ``audit_daemon_rules``
 * ``bond``
 * ``bridge``
 * ``command``
-* ``csv`` (depends on ``json``)
 * ``directory``
-* ``etc_group``
 * ``file``
 * ``gem``
 * ``group``
-* ``group_policy``
 * ``host``
-* ``inetd_config``
 * ``interface``
-* ``json``
 * ``kernel_module``
 * ``kernel_parameter``
+* ``npm``
+* ``oneget``
+* ``os``
+* ``os_env``
+* ``package``
+* ``pip``
+* ``port``
+* ``processes``
+* ``registry_key``
+* ``script``
+* ``service``
+* ``user``
+* ``windows_feature``
+* ``yum``
+
+In addition to the open source resources, Chef Compliance ships with additional resources:
+
+* ``apache_conf``
+* ``audit_policy``
+* ``audit_daemon_conf``
+* ``audit_daemon_rules``
+* ``csv``
+* ``etc_group``
+* ``group_policy``
+* ``inetd_config``
+* ``json``
 * ``limits_conf``
 * ``login_defs``
 * ``mysql``
 * ``mysql_conf``
 * ``mysql_session``
-* ``npm``
 * ``ntp_conf``
-* ``oneget``
-* ``os``
-* ``os_env``
-* ``package``
 * ``parse_config``
 * ``parse_config_file``
 * ``passwd``
-* ``pip``
-* ``port``
 * ``postgres``
 * ``postgres_conf``
 * ``postgres_session``
-* ``processes``
-* ``registry_key``
-* ``script``
 * ``security_policy``
-* ``service``
 * ``ssh_config``
 * ``sshd_config``
-* ``user``
-* ``windows_feature``
-* ``yaml`` (depends on ``json``)
-* ``yum``
+* ``yaml``
 
 See below for more information about each audit resource, its related matchers, and examples of how to use it in a recipe.
 
@@ -189,13 +131,13 @@ A ``bridge`` audit resource block declares xxxxx. For example:
      it { should have_interface 'eth0' }
    end
 
-.. 
+..
 .. where
-.. 
+..
 .. * ``xxxxx`` must specify xxxxx
 .. * xxxxx
 .. * ``xxxxx`` is a valid matcher for this audit resource
-.. 
+..
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -229,19 +171,19 @@ The ``interfaces`` matcher tests if the named interface is present. For example:
 
 .. wild guessing ^^^
 
-.. 
+..
 .. Examples
 .. -----------------------------------------------------
 .. The following examples show how to use this audit resource in a recipe.
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
+..
 
 
 
@@ -364,7 +306,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Verify host name s reachable over a specific protocol and port number** 
+**Verify host name s reachable over a specific protocol and port number**
 
 .. code-block:: ruby
 
@@ -372,7 +314,7 @@ The following examples show how to use this audit resource in a recipe.
      it { should be_reachable }
    end
 
-**Verify that a specific IP address can be resolved** 
+**Verify that a specific IP address can be resolved**
 
 .. code-block:: ruby
 
@@ -440,7 +382,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Verify that FTP is disabled** 
+**Verify that FTP is disabled**
 
 The contents if the ``inetd.conf`` file contain the following:
 
@@ -489,13 +431,13 @@ A ``interface`` audit resource block declares network interface properties to be
      its('name') { should eq eth0 }
    end
 
-.. 
+..
 .. where
-.. 
+..
 .. * ``xxxxx`` must specify xxxxx
 .. * xxxxx
 .. * ``xxxxx`` is a valid matcher for this audit resource
-.. 
+..
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -525,19 +467,19 @@ The ``speed`` matcher tests the speed of the network interface, in MB/sec. For e
 
    its(:speed) { should eq 1000 }
 
-.. 
+..
 .. Examples
 .. -----------------------------------------------------
 .. The following examples show how to use this audit resource in a recipe.
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
+..
 
 
 
@@ -645,7 +587,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test password expiration settings** 
+**Test password expiration settings**
 
 .. code-block:: ruby
 
@@ -656,7 +598,7 @@ The following examples show how to use this audit resource in a recipe.
      its('PASS_WARN_AGE') { should eq '30' }
    end
 
-**Test the encryption method** 
+**Test the encryption method**
 
 .. code-block:: ruby
 
@@ -868,7 +810,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**xxxxx** 
+**xxxxx**
 
 .. code-block:: ruby
 
@@ -877,7 +819,7 @@ The following examples show how to use this audit resource in a recipe.
      its(:uids) { should eq 1 }
    end
 
-**xxxxx** 
+**xxxxx**
 
 .. code-block:: ruby
 
@@ -931,7 +873,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test if Jinja2 is installed on the system** 
+**Test if Jinja2 is installed on the system**
 
 .. code-block:: ruby
 
@@ -939,7 +881,7 @@ The following examples show how to use this audit resource in a recipe.
      it { should be_installed }
    end
 
-**Test if Jinja2 2.8 is installed on the system** 
+**Test if Jinja2 2.8 is installed on the system**
 
 .. code-block:: ruby
 
@@ -1028,7 +970,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test port 80, listening with the TCP protocol** 
+**Test port 80, listening with the TCP protocol**
 
 .. code-block:: ruby
 
@@ -1037,7 +979,7 @@ The following examples show how to use this audit resource in a recipe.
      its('protocol') {should eq 'tcp'}
    end
 
-**Test port 80, listening with TCP version IPv6 protocol** 
+**Test port 80, listening with TCP version IPv6 protocol**
 
 .. code-block:: ruby
 
@@ -1093,7 +1035,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test the maximum number of allowed client connections** 
+**Test the maximum number of allowed client connections**
 
 .. code-block:: ruby
 
@@ -1101,7 +1043,7 @@ The following examples show how to use this audit resource in a recipe.
      its('max_connections') { should eq '5' }
    end
 
-**Test system logging** 
+**Test system logging**
 
 .. code-block:: ruby
 
@@ -1114,7 +1056,7 @@ The following examples show how to use this audit resource in a recipe.
      its('log_line_prefix') { should eq '%t %u %d %h' }
    end
 
-**Test the port on which PostgreSQL listens** 
+**Test the port on which PostgreSQL listens**
 
 .. code-block:: ruby
 
@@ -1122,7 +1064,7 @@ The following examples show how to use this audit resource in a recipe.
      its('port') { should eq '5432' }
    end
 
-**Test the Unix socket settings** 
+**Test the Unix socket settings**
 
 .. code-block:: ruby
 
@@ -1185,7 +1127,7 @@ The following examples show how to use this audit resource in a recipe.
      its(:output) { should eq('') }
    end
 
-**Test for risky database entries** 
+**Test for risky database entries**
 
 .. code-block:: ruby
 
@@ -1236,7 +1178,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test if the list length for the mysqld process is 1** 
+**Test if the list length for the mysqld process is 1**
 
 .. code-block:: ruby
 
@@ -1244,7 +1186,7 @@ The following examples show how to use this audit resource in a recipe.
      its('list.length') { should eq '1' }
    end
 
-**Test if the init process is owned by the root user** 
+**Test if the init process is owned by the root user**
 
 .. code-block:: ruby
 
@@ -1252,7 +1194,7 @@ The following examples show how to use this audit resource in a recipe.
      its('user') { should eq 'root' }
    end
 
-**Test if a high-priority process is running** 
+**Test if a high-priority process is running**
 
 .. code-block:: ruby
 
@@ -1297,7 +1239,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test the start time for the Schedule service** 
+**Test the start time for the Schedule service**
 
 .. code-block:: ruby
 
@@ -1324,13 +1266,13 @@ A ``script`` audit resource block declares xxxxx. For example:
      its('script_name') { should include 'total_wild_guess' }
    end
 
-.. 
+..
 .. where
-.. 
+..
 .. * ``xxxxx`` must specify xxxxx
 .. * xxxxx
 .. * ``xxxxx`` is a valid matcher for this audit resource
-.. 
+..
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -1350,7 +1292,7 @@ The following examples show how to use this audit resource in a recipe.
 
 .. stoopid test below; probably need a better one
 
-**Test that user Grantmc belongs to the Active Directory object** 
+**Test that user Grantmc belongs to the Active Directory object**
 
 .. code-block:: ruby
 
@@ -1358,11 +1300,11 @@ The following examples show how to use this audit resource in a recipe.
      its('ADObject') { should include 'Get-ADPermission -Identity Grantmc' }
    end
 
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
+..
 
 
 security_policy -- DONE
@@ -1425,13 +1367,13 @@ A ``service`` audit resource block declares the name of a service and then one (
      it { should be_running }
    end
 
-.. 
+..
 .. where
-.. 
+..
 .. * ``xxxxx`` must specify xxxxx
 .. * xxxxx
 .. * ``xxxxx`` is a valid matcher for this audit resource
-.. 
+..
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -1465,7 +1407,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test if the postgresql service is both running and enabled** 
+**Test if the postgresql service is both running and enabled**
 
 .. code-block:: ruby
 
@@ -1474,7 +1416,7 @@ The following examples show how to use this audit resource in a recipe.
      it { should be_running }
    end
 
-**Test if the mysql service is both running and enabled** 
+**Test if the mysql service is both running and enabled**
 
 .. code-block:: ruby
 
@@ -1502,7 +1444,7 @@ where
 
 * ``name`` is a configuration setting in ``ssh_config``
 * ``('path')`` is the non-default ``/path/to/ssh_config``
-* ``{ should include('foo') }`` tests the value of ``name`` as read from ``ssh_config`` versus the value declared in the test 
+* ``{ should include('foo') }`` tests the value of ``name`` as read from ``ssh_config`` versus the value declared in the test
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -1541,7 +1483,7 @@ The following examples show how to use this audit resource in a recipe.
 .. code-block:: ruby
 
    return unless command('ssh').exist?
-   
+
    describe ssh_config do
      its('SendEnv') { should include('GORDON_CLIENT') }
    end
@@ -1574,7 +1516,7 @@ where
 
 * ``name`` is a configuration setting in ``sshd_config``
 * ``('path')`` is the non-default ``/path/to/sshd_config``
-* ``{ should include('foo') }`` tests the value of ``name`` as read from ``ssh_config`` versus the value declared in the test 
+* ``{ should include('foo') }`` tests the value of ``name`` as read from ``ssh_config`` versus the value declared in the test
 
 Matchers -- DONE
 -----------------------------------------------------
@@ -1603,7 +1545,7 @@ The following examples show how to use this audit resource in a recipe.
 .. code-block:: ruby
 
    return unless command('sshd').exist?
-   
+
    describe sshd_config do
      its('AcceptEnv') { should include('GORDON_SERVER') }
    end
@@ -1613,7 +1555,7 @@ The following examples show how to use this audit resource in a recipe.
 .. code-block:: ruby
 
    return unless command('sshd').exist?
-   
+
    describe sshd_config do
      its('AddressFamily') { should eq 'inet6' }
    end
@@ -1756,15 +1698,15 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
-.. **xxxxx** 
-.. 
+..
+.. **xxxxx**
+..
 .. xxxxx
-.. 
+..
 
 
 windows_feature -- DONE
@@ -1814,7 +1756,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test the DHCP Server feature ** 
+**Test the DHCP Server feature **
 
 .. code-block:: ruby
 
@@ -1928,7 +1870,7 @@ Examples -- DONE
 -----------------------------------------------------
 The following examples show how to use this audit resource in a recipe.
 
-**Test if the yum repo exists** 
+**Test if the yum repo exists**
 
 .. code-block:: ruby
 
@@ -1936,7 +1878,7 @@ The following examples show how to use this audit resource in a recipe.
      its('repos') { should exist }
    end
 
-**Test if the 'base/7/x86_64' repo exists and is enabled** 
+**Test if the 'base/7/x86_64' repo exists and is enabled**
 
 .. code-block:: ruby
 
@@ -1946,7 +1888,7 @@ The following examples show how to use this audit resource in a recipe.
      its('epel') { should be_enabled }
    end
 
-**Test if a specific yum repo exists** 
+**Test if a specific yum repo exists**
 
 .. code-block:: ruby
 
