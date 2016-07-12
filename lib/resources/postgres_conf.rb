@@ -42,6 +42,16 @@ module Inspec::Resources
       res
     end
 
+    def method_missing(name)
+      param = params[name.to_s]
+      return nil if param.nil?
+      # extract first value if we have only one value in array
+      return param[0] if param.length == 1
+      param
+    end
+
+    private
+
     def read_content
       @content = ''
       @params = {}
