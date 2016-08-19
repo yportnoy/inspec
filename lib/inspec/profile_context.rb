@@ -185,7 +185,6 @@ module Inspec
             res = describe(*args, &block)
           end
           register_control(rule, &block)
-          res
         end
 
         define_method :register_control do |control, &block|
