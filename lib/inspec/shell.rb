@@ -17,7 +17,6 @@ module Inspec
       # store context to run commands in this context
       c = { content: 'binding.pry', ref: nil, line: nil }
       @runner.add_content(c, [])
-      @runner.run
     end
 
     def configure_pry
@@ -37,6 +36,23 @@ module Inspec
       # Add a help menu as the default intro
       Pry.hooks.add_hook(:before_session, :intro) do
         intro
+      end
+
+      # execute describe blocks
+      Pry.hooks.add_hook(:after_eval, "run_controls") do |output, binding, pry|
+        next unless output.is_a?(Inspec::Rule)
+        @runner.method(:register_rule).call(output.id, output)
+        @runner.run
+      end
+
+      # Don't print out control class inspection when the user uses DSL methods.
+      # Instead produce a result of evaluating their control.
+      Pry.config.print = proc do |output, value, _pry_|
+        next if value.is_a?(Inspec::Rule)
+        _pry_.pager.open do |pager|
+          pager.print _pry_.config.output_prefix
+          Pry::ColorPrinter.pp(value, pager, Pry::Terminal.width! - 1)
+        end
       end
     end
 
