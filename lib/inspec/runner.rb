@@ -142,6 +142,7 @@ module Inspec
 
     def_delegator :@test_collector, :run
     def_delegator :@test_collector, :report
+    def_delegator :@test_collector, :reset
 
     private
 

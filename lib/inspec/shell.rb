@@ -41,6 +41,8 @@ module Inspec
       # execute describe blocks
       Pry.hooks.add_hook(:after_eval, "run_controls") do |output, binding, pry|
         next unless output.is_a?(Inspec::Rule)
+        # reset tests, register the control and execute the runner
+        @runner.reset
         @runner.method(:register_rule).call(output.id, output)
         @runner.run
       end
