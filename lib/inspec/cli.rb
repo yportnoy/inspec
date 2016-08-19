@@ -159,7 +159,9 @@ class Inspec::InspecCLI < Inspec::BaseCLI # rubocop:disable Metrics/ClassLength
   def shell_func
     diagnose
     o = opts.dup
-    o[:logger] = Logger.new(opts['format'] == 'json' ? nil : STDOUT)
+
+    log_device = opts['format'] == 'json' ? nil : STDOUT
+    o[:logger] = Logger.new(log_device)
     o[:logger].level = get_log_level(o.log_level)
 
     if o[:command].nil?
