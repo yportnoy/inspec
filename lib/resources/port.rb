@@ -268,10 +268,22 @@ module Inspec::Resources
       cmd = inspec.command('netstat -tulpen')
       return nil if cmd.exit_status.to_i != 0
 
+      # headers
+      header_rules = netstat_headers(cmd.stdout)
+      regex = Regexp.new("^#{header_rules.map { |_k, v| v }.join('\s+')}")
+      headers = header_rules.map { |k, _v| k }
       ports = []
+
       # parse all lines
       cmd.stdout.each_line do |line|
-        port_info = parse_netstat_line(line)
+        netstat_line = {}
+
+        parsed_line = regex.match(line)
+        next if parsed_line.nil? || parsed_line.captures[0] =~ /proto/i
+
+        headers.zip(parsed_line.captures).each { |header, value| netstat_line[header] = value }
+
+        port_info = parse_netstat_line(netstat_line)
 
         # only push protocols we are interested in
         next unless %w{tcp tcp6 udp udp6}.include?(port_info['protocol'])
@@ -303,23 +315,44 @@ module Inspec::Resources
       nil
     end
 
+    def netstat_headers(output)
+      known_headers = {
+        'Proto' => ['protocol', '(\\S+)'],
+        'Recv-Q' => ['receive_q', '(\\S+)'],
+        'Send-Q' => ['send_q', '(\\S+)'],
+        'Local Address' => ['local_addr', '(\\S+)'],
+        'Foreign Address' => ['foreign_addr', '(\\S+)'],
+        'State' => ['state', '(\\S+)?'],
+        'User' => ['user', '(\\S+)'],
+        'Inode' => ['inode', '(\\S+)'],
+        'PID/Program name' => ['pid_and_program', '(\\S+)'],
+      }
+
+      header_line = output.split("\n").find { |output_line| known_headers.keys.any? { |header| output_line[header] } }
+      known_headers.each_pair { |k, v| header_line.gsub!(k, v[0]) }
+      header_line.split.map do |header|
+        if (header_array = known_headers.values.find { |array| array[0] == header })
+          header_array
+        else
+          [header, '(\\S+)']
+        end
+      end
+    end
+
     def parse_netstat_line(line)
       # parse each line
       # 1 - Proto, 2 - Recv-Q, 3 - Send-Q, 4 - Local Address, 5 - Foreign Address, 6 - State, 7 - Inode, 8 - PID/Program name
-      parsed = /^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)?\s+(\S+)\s+(\S+)\s+(\S+)/.match(line)
-      return {} if parsed.nil? || line.match(/^proto/i)
-
       # parse ip4 and ip6 addresses
-      protocol = parsed[1].downcase
+      protocol = line['protocol'].downcase
 
       # detect protocol if not provided
-      protocol += '6' if parsed[4].count(':') > 1 && %w{tcp udp}.include?(protocol)
+      protocol += '6' if line['local_addr'].count(':') > 1 && %w{tcp udp}.include?(protocol)
 
       # extract host and port information
-      host, port = parse_net_address(parsed[4], protocol)
+      host, port = parse_net_address(line['local_addr'], protocol)
 
       # extract PID
-      process = parsed[9].split('/')
+      process = line['pid_and_program'].split('/')
       pid = process[0]
       pid = pid.to_i if pid =~ /^\d+$/
       process = process[1]
